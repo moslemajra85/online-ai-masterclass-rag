@@ -492,11 +492,11 @@ function PanelVisual({ index, ranked }) {
   }
 }
 
-export default function Home() {
+export default function Home({ initialMode, initialWorkshopView } = {}) {
   const [activeStep, setActiveStep] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [speed, setSpeed] = useState(1);
-  const [mode, setMode] = useState("lesson");
+  const [mode, setMode] = useState(initialMode ?? "lesson");
   const gridRef = useRef(null);
 
   const ranked = useMemo(
@@ -505,7 +505,7 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if (window.location.hash === "#workshop-01") {
+    if (window.location.hash.startsWith("#workshop-01")) {
       setMode("workshop");
       setPlaying(false);
     } else if (window.location.hash === "#diagram-lab") {
@@ -688,7 +688,7 @@ export default function Home() {
         The vectors are intentionally simplified to three dimensions. Production embedding models use hundreds or thousands of dimensions, but cosine similarity is calculated the same way.
       </aside>
         </>
-      ) : mode === "diagram" ? <DiagramLab /> : <WorkshopHub />}
+      ) : mode === "diagram" ? <DiagramLab /> : <WorkshopHub initialView={initialWorkshopView} />}
       <footer className="site-signature">
         <span>ONLINE AI MASTERCLASS · JULY 29, 2026</span>
         <b>Created by Moslem Ajra</b>

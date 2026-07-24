@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import WorkshopCodeExplorer from "./WorkshopCodeExplorer";
 
 const MODULES = [
@@ -117,11 +117,21 @@ function CopyCode({ children }) {
   );
 }
 
-export default function WorkshopHub() {
+export default function WorkshopHub({ initialView } = {}) {
   const [activeModule, setActiveModule] = useState(0);
-  const [view, setView] = useState("curriculum");
+  const [view, setView] = useState(initialView ?? "curriculum");
   const progress = useMemo(() => Math.round(((activeModule + 1) / MODULES.length) * 100), [activeModule]);
   const module = MODULES[activeModule];
+
+  useEffect(() => {
+    if (window.location.hash === "#workshop-01-code") setView("code");
+  }, []);
+
+  function selectView(nextView) {
+    setView(nextView);
+    const hash = nextView === "code" ? "#workshop-01-code" : "#workshop-01";
+    window.history.replaceState(null, "", hash);
+  }
 
   return (
     <section className="workshop-hub">
@@ -140,10 +150,10 @@ export default function WorkshopHub() {
       </header>
 
       <nav className="workshop-tabs" aria-label="Workshop sections">
-        <button className={view === "curriculum" ? "active" : ""} onClick={() => setView("curriculum")}>Curriculum</button>
-        <button className={view === "setup" ? "active" : ""} onClick={() => setView("setup")}>Developer setup</button>
-        <button className={view === "project" ? "active" : ""} onClick={() => setView("project")}>Python project</button>
-        <button className={view === "code" ? "active" : ""} onClick={() => setView("code")}>All code · 796 blocks</button>
+        <button className={view === "curriculum" ? "active" : ""} onClick={() => selectView("curriculum")}>Curriculum</button>
+        <button className={view === "setup" ? "active" : ""} onClick={() => selectView("setup")}>Developer setup</button>
+        <button className={view === "project" ? "active" : ""} onClick={() => selectView("project")}>Python project</button>
+        <button className={view === "code" ? "active" : ""} onClick={() => selectView("code")}>All code · 796 blocks</button>
         <a href="/workshops/workshop-01-rag-foundations/README.md" target="_blank" rel="noreferrer">Open lab guide ↗</a>
       </nav>
 
