@@ -1,0 +1,20 @@
+[
+  {
+    "id": "remote-work",
+    "title": "Remote Work Policy",
+    "source": "policies/remote-work.md",
+    "text": "Team members may work remotely up to three days per week with manager approval. Everyone should be reachable during the shared collaboration window from 10:00 to 15:00. Requests for fully remote arrangements are reviewed separately."
+  },
+  {
+    "id": "annual-leave",
+    "title": "Annual Leave Guide",
+    "source": "policies/annual-leave.md",
+    "text": "Full-time team members receive twenty-five paid vacation days each calendar year. Leave requests should normally be submitted at least two weeks before the first day away."
+  },
+  {
+    "id": "support",
+    "title": "Account Support",
+    "source": "guides/account-support.md",
+    "text": "For a locked account, contact the help desk and include the device name. Support will verify identity before resetting access. Never send a password through chat or email."
+  }
+]
